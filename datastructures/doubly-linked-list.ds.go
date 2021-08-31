@@ -1,6 +1,8 @@
 // Package datastructures implements various data structures utilized in the program
 package datastructures
 
+import "fmt"
+
 // Type definition for the Doubly Linked List data structure
 type DoublyLinkedList struct {
 	head   *DoublyLinkedListNode
@@ -77,6 +79,18 @@ func (dlist DoublyLinkedList) Contains(item int) bool {
 func (dlist *DoublyLinkedList) InsertArray(itemArr []int) {
 	for _, v := range itemArr {
 		dlist.Insert(v)
+	}
+}
+
+func (dlist DoublyLinkedList) Traverse() {
+	runner := dlist.head
+	if runner == nil {
+		return
+	}
+
+	for runner != nil {
+		fmt.Println(runner.item)
+		runner = runner.next
 	}
 }
 

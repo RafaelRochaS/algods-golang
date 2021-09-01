@@ -1,7 +1,10 @@
 // Package datastructures implements various data structures utilized in the program
 package datastructures
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // Type definition for the Doubly Linked List data structure
 type DoublyLinkedList struct {
@@ -62,17 +65,17 @@ func (dlist *DoublyLinkedList) Append(item int) {
 }
 
 // Checks whether a specific item is present in the list
-func (dlist DoublyLinkedList) Contains(item int) bool {
+func (dlist DoublyLinkedList) Find(item int) (*DoublyLinkedListNode, error) {
 	if dlist.head == nil {
-		return false
+		return nil, errors.New("item not found in the list")
 	}
 
 	for n := dlist.head; n != dlist.tail; n = n.next {
 		if n.item == item {
-			return true
+			return n, nil
 		}
 	}
-	return false
+	return nil, errors.New("item not found in the list")
 }
 
 // Inserts an entire array into a list
@@ -94,18 +97,31 @@ func (dlist DoublyLinkedList) Traverse() {
 	}
 }
 
-// TODO: Implement correctly
-// func (dlist *DoublyLinkedList) Delete(item int) (int, error) {
-// 	if !dlist.Contains(item) {
-// 		return 0, errors.New("item not found in the list")
-// 	}
+func (dlist *DoublyLinkedList) Delete(item int) (int, error) {
+	if ptr, err := dlist.Find(item); err != nil {
+		dlist.delete(ptr)
+		return item, nil
+	}
 
-// 	return item, nil
-// }
+	return item, errors.New("item not found in the list")
+}
 
-// func (dlist *DoublyLinkedList) Update(old int, new int) {
+func (dlist *DoublyLinkedList) delete(ptr *DoublyLinkedListNode) {
+	if ptr.previous != nil {
+		ptr.previous.next = ptr.next
+	} else {
+		dlist.head = ptr.next
+	}
 
-// }
+	if ptr.next != nil {
+		ptr.next.previous = ptr.previous
+	}
+}
+
+func (dlist *DoublyLinkedList) Update(old int, new int) {
+	dlist.Delete(old)
+	dlist.Insert(new)
+}
 
 // Type definition for the node of the doubly linked list data structure
 type DoublyLinkedListNode struct {

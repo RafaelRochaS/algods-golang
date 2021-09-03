@@ -1,6 +1,7 @@
 package operations
 
 import (
+	"algods/common"
 	"algods/datastructures"
 	"fmt"
 )
@@ -26,16 +27,14 @@ func DListMenu() {
 }
 
 func insertItem(dlist *datastructures.DoublyLinkedList) {
-	var input int
 	fmt.Print("\nType integer to insert on the list: ")
-	fmt.Scanf("%d", &input)
+	input := common.GetIntInput()
 	dlist.Insert(input)
 }
 
 func searchItem(dlist datastructures.DoublyLinkedList) {
-	var input int
 	fmt.Print("\nType integer to search on the list: ")
-	fmt.Scanf("%d", &input)
+	input := common.GetIntInput()
 	_, err := dlist.Find(input)
 	if err != nil {
 		fmt.Println("Item is in the list.")

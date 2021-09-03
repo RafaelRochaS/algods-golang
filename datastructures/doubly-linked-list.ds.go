@@ -27,6 +27,7 @@ func (dlist *DoublyLinkedList) Clear() {
 
 // Inserts an item at the beginning of the list
 func (dlist *DoublyLinkedList) Insert(item int) {
+	dlist.length++
 	if dlist.head == nil && dlist.tail == nil {
 		dlist.insertEmptyList(item)
 		return
@@ -50,6 +51,7 @@ func (dlist *DoublyLinkedList) insertEmptyList(item int) {
 
 // Inserts an item at the end of the list
 func (dlist *DoublyLinkedList) Append(item int) {
+	dlist.length++
 	if dlist.head == nil && dlist.tail == nil {
 		dlist.insertEmptyList(item)
 		return

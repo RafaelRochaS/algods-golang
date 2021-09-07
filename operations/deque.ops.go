@@ -4,8 +4,10 @@ import (
 	"algods/common"
 	"algods/interfaces"
 	"fmt"
+	"math/rand"
 )
 
+// Initiates the interactive menu for operating on a Deque ADT
 func DequeMenu(dq interfaces.IDeque) {
 	var input int
 	for {
@@ -49,6 +51,14 @@ func DequeMenu(dq interfaces.IDeque) {
 			}
 		case 7:
 			contains(dq)
+		case 8:
+			dq.Traverse()
+		case 9:
+			fmt.Println(dq.PeekFront())
+		case 10:
+			fmt.Println(dq.PeekRear())
+		case 11:
+			insertRandomDq(dq)
 		case 12:
 			fmt.Println("\nCurrent size of the deque: ", dq.Length())
 		}
@@ -76,4 +86,14 @@ func contains(dq interfaces.IDeque) {
 	} else {
 		fmt.Println("\nItem not found.")
 	}
+}
+
+func insertRandomDq(dq interfaces.IDeque) {
+	fmt.Println("\nHow many items to add? ")
+	input := common.GetIntInput()
+	fmt.Println("Inserting...")
+	for i := 0; i < input; i++ {
+		dq.InsertFront(rand.Intn(MAX_RANDOM_VALUE))
+	}
+	fmt.Println("Done.")
 }

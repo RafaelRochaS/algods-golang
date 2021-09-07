@@ -5,24 +5,28 @@ import (
 	"fmt"
 )
 
+// Type definition for a default implementation of the Deque ADT
 type Deque struct {
 	head   *DequeNode
 	tail   *DequeNode
 	length int
 }
 
+// Struct for a Node within the Deque
 type DequeNode struct {
 	previous *DequeNode
 	item     int
 	next     *DequeNode
 }
 
+// Empties the Deque
 func (dq *Deque) Clear() {
 	dq.head = nil
 	dq.tail = nil
 	dq.length = 0
 }
 
+// Inserts an item at the front of the Deque
 func (dq *Deque) InsertFront(input int) {
 	if !dq.validateEmptyInsert(input) {
 		newItem := DequeNode{previous: dq.head, item: input}
@@ -32,6 +36,7 @@ func (dq *Deque) InsertFront(input int) {
 	}
 }
 
+// Inserts an item at the rear of the Deque
 func (dq *Deque) InsertRear(input int) {
 	if !dq.validateEmptyInsert(input) {
 		newItem := DequeNode{previous: dq.tail, item: input}
@@ -55,6 +60,7 @@ func (dq Deque) validateEmptyDelete() bool {
 	return dq.head == nil && dq.tail == nil
 }
 
+// Deletes the item at the front of the Deque
 func (dq *Deque) DeleteFront() (int, error) {
 	if dq.validateEmptyDelete() {
 		return -1, errors.New("deque is empty")
@@ -71,6 +77,7 @@ func (dq *Deque) DeleteFront() (int, error) {
 	return item, nil
 }
 
+// Deletes the item at the rear of the Deque
 func (dq *Deque) DeleteRear() (int, error) {
 	if dq.validateEmptyDelete() {
 		return -1, errors.New("deque is empty")
@@ -87,6 +94,7 @@ func (dq *Deque) DeleteRear() (int, error) {
 	return item, nil
 }
 
+// Checks whether a specified item is in the Deque.
 func (dq Deque) Contains(input int) bool {
 	runner := dq.head
 
@@ -99,6 +107,7 @@ func (dq Deque) Contains(input int) bool {
 	return false
 }
 
+// Traverses the entire Deque, printing each item
 func (dq Deque) Traverse() {
 	runner := dq.head
 	for runner != nil {
@@ -107,14 +116,17 @@ func (dq Deque) Traverse() {
 	}
 }
 
+// Returns the item at the front of the Deque
 func (dq Deque) PeekFront() int {
 	return dq.head.item
 }
 
+// Returns the item at the rear of the Deque
 func (dq Deque) PeekRear() int {
 	return dq.tail.item
 }
 
+// Returns the length of the Deque
 func (dq Deque) Length() int {
 	return dq.length
 }

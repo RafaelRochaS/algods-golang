@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Type definition for the Doubly Linked List data structure
+// Type definition for a default implementation of the Doubly Linked List ADT
 type DoublyLinkedList struct {
 	head   *DoublyLinkedListNode
 	tail   *DoublyLinkedListNode
@@ -87,6 +87,7 @@ func (dlist *DoublyLinkedList) InsertArray(itemArr []int) {
 	}
 }
 
+// Traverses the entire linked list, printing each item
 func (dlist DoublyLinkedList) Traverse() {
 	runner := dlist.head
 	if runner == nil {
@@ -99,6 +100,7 @@ func (dlist DoublyLinkedList) Traverse() {
 	}
 }
 
+// Deletes a specific item from the list, if it exists
 func (dlist *DoublyLinkedList) Delete(item int) (int, error) {
 	if ptr, err := dlist.Find(item); err != nil {
 		dlist.delete(ptr.(*DoublyLinkedListNode))
@@ -120,6 +122,7 @@ func (dlist *DoublyLinkedList) delete(ptr *DoublyLinkedListNode) {
 	}
 }
 
+// Updates the value of an item within the list, if it exists
 func (dlist *DoublyLinkedList) Update(old int, new int) {
 	dlist.Delete(old)
 	dlist.Insert(new)

@@ -11,6 +11,7 @@ func GetIntInput() int {
 	return input
 }
 
+// Print a menu with all the bells and whistles
 func PrintMenu(ops string) {
 	fmt.Println("\n---------------------------------------------")
 	fmt.Println("Select an operation to perform:")

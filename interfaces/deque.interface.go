@@ -1,5 +1,6 @@
 package interfaces
 
+// ADT for the Deque
 type IDeque interface {
 	InsertFront(int)
 	InsertRear(int)

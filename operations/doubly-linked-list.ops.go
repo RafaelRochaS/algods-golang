@@ -1,4 +1,5 @@
-// Collection of interactive operations to perform on data structures and algorithms
+// Collection of interactive operations to perform on data structures and algorithms.
+// Operates directly on the ADTs (interfaces), decoupling from implementation
 package operations
 
 import (
@@ -11,7 +12,7 @@ import (
 const MAX_TRAVERSE_LENGTH = 50
 const MAX_RANDOM_VALUE = 1_000
 
-// Initiates the interactive menu for operating a doubly-linked list
+// Initiates the interactive menu for operating on a Doubly Linked List ADT
 func DListMenu(dlist interfaces.IDoublyLinkedList) {
 	var input int
 	for {

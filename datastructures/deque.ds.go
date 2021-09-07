@@ -103,6 +103,7 @@ func (dq Deque) Traverse() {
 	runner := dq.head
 	for runner != nil {
 		fmt.Println(runner.item)
+		runner = runner.next
 	}
 }
 
@@ -112,4 +113,8 @@ func (dq Deque) PeekFront() int {
 
 func (dq Deque) PeekRear() int {
 	return dq.tail.item
+}
+
+func (dq Deque) Length() int {
+	return dq.length
 }

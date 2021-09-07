@@ -10,4 +10,5 @@ type IDeque interface {
 	Traverse()
 	PeekFront() int
 	PeekRear() int
+	Length() int
 }

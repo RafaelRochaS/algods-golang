@@ -67,7 +67,7 @@ func (dlist *DoublyLinkedList) Append(item int) {
 }
 
 // Checks whether a specific item is present in the list
-func (dlist DoublyLinkedList) Find(item int) (*DoublyLinkedListNode, error) {
+func (dlist DoublyLinkedList) Find(item int) (interface{}, error) {
 	if dlist.head == nil {
 		return nil, errors.New("item not found in the list")
 	}
@@ -101,7 +101,7 @@ func (dlist DoublyLinkedList) Traverse() {
 
 func (dlist *DoublyLinkedList) Delete(item int) (int, error) {
 	if ptr, err := dlist.Find(item); err != nil {
-		dlist.delete(ptr)
+		dlist.delete(ptr.(*DoublyLinkedListNode))
 		return item, nil
 	}
 

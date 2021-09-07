@@ -2,6 +2,7 @@ package main
 
 import (
 	"algods/common"
+	"algods/datastructures"
 	"algods/operations"
 	"fmt"
 )
@@ -20,15 +21,17 @@ func main() {
 			fmt.Println("Exiting...")
 			return
 		case 1:
-			operations.DListMenu()
+			operations.DListMenu(&datastructures.DoublyLinkedList{})
 		case 2:
-			operations.DequeMenu()
+			operations.DequeMenu(&datastructures.Deque{})
 		}
 	}
 }
 
 func printMenu() {
 	fmt.Println("\nWhich Data Structure or Algorthim do you want to try out?")
-	fmt.Println("0 - Exit program\n1 - Doubly Linked List\n2 - Deque")
+	fmt.Println(`0 - Exit program
+1 - Doubly Linked List - Default Implementation
+2 - Deque - Default Implementation`)
 	fmt.Println("---------------------------------------------")
 }

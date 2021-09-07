@@ -3,7 +3,7 @@ package operations
 
 import (
 	"algods/common"
-	"algods/datastructures"
+	"algods/interfaces"
 	"fmt"
 	"math/rand"
 )
@@ -12,26 +12,32 @@ const MAX_TRAVERSE_LENGTH = 50
 const MAX_RANDOM_VALUE = 1_000
 
 // Initiates the interactive menu for operating a doubly-linked list
-func DListMenu() {
-	dlist := datastructures.DoublyLinkedList{}
+func DListMenu(dlist interfaces.IDoublyLinkedList) {
 	var input int
 	for {
-		common.PrintMenu("0 - Return\n1 - Insert\n2 - Clear\n3 - Find\n4 - Delete\n5 - Insert Random\n6 - Traverse\n7 - Length")
+		common.PrintMenu(`0 - Return
+1 - Insert
+2 - Clear
+3 - Find
+4 - Delete
+5 - Insert Random
+6 - Traverse
+7 - Length`)
 		fmt.Scanf("%d", &input)
 		switch input {
 		case 0:
 			return
 		case 1:
-			insertItem(&dlist)
+			insertItem(dlist)
 		case 2:
 			fmt.Println("\nClearing list...")
 			dlist.Clear()
 		case 3:
 			searchItem(dlist)
 		case 4:
-			deleteItem(&dlist)
+			deleteItem(dlist)
 		case 5:
-			insertRandom(&dlist)
+			insertRandom(dlist)
 		case 6:
 			fmt.Println("\nTraversing...")
 			dlist.Traverse()
@@ -41,13 +47,13 @@ func DListMenu() {
 	}
 }
 
-func insertItem(dlist *datastructures.DoublyLinkedList) {
+func insertItem(dlist interfaces.IDoublyLinkedList) {
 	fmt.Print("\nType integer to insert on the list: ")
 	input := common.GetIntInput()
 	dlist.Insert(input)
 }
 
-func searchItem(dlist datastructures.DoublyLinkedList) {
+func searchItem(dlist interfaces.IDoublyLinkedList) {
 	fmt.Print("\nType integer to search on the list: ")
 	input := common.GetIntInput()
 	_, err := dlist.Find(input)
@@ -58,7 +64,7 @@ func searchItem(dlist datastructures.DoublyLinkedList) {
 	}
 }
 
-func deleteItem(dlist *datastructures.DoublyLinkedList) {
+func deleteItem(dlist interfaces.IDoublyLinkedList) {
 	fmt.Print("\nType integer to delete from the list: ")
 	input := common.GetIntInput()
 	_, err := dlist.Delete(input)
@@ -69,7 +75,7 @@ func deleteItem(dlist *datastructures.DoublyLinkedList) {
 	}
 }
 
-func insertRandom(dlist *datastructures.DoublyLinkedList) {
+func insertRandom(dlist interfaces.IDoublyLinkedList) {
 	fmt.Print("\nHow many items to add? ")
 	input := common.GetIntInput()
 	fmt.Println("Inserting...")

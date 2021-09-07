@@ -16,7 +16,7 @@ func DListMenu() {
 	dlist := datastructures.DoublyLinkedList{}
 	var input int
 	for {
-		printMenu()
+		common.PrintMenu("0 - Return\n1 - Insert\n2 - Clear\n3 - Find\n4 - Delete\n5 - Insert Random\n6 - Traverse\n7 - Length")
 		fmt.Scanf("%d", &input)
 		switch input {
 		case 0:
@@ -77,12 +77,4 @@ func insertRandom(dlist *datastructures.DoublyLinkedList) {
 		dlist.Insert(rand.Intn(MAX_RANDOM_VALUE))
 	}
 	fmt.Println("Done.")
-
-}
-
-func printMenu() {
-	fmt.Println("\n---------------------------------------------")
-	fmt.Println("Select an operation to perform:")
-	fmt.Println("0 - Return\n1 - Insert\n2 - Clear\n3 - Find\n4 - Delete\n5 - Insert Random\n6 - Traverse\n7 - Length")
-	fmt.Println("---------------------------------------------")
 }

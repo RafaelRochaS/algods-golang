@@ -21,12 +21,14 @@ func main() {
 			return
 		case 1:
 			operations.DListMenu()
+		case 2:
+			operations.DequeMenu()
 		}
 	}
 }
 
 func printMenu() {
 	fmt.Println("\nWhich Data Structure or Algorthim do you want to try out?")
-	fmt.Println("0 - Exit program\n1 - Doubly Linked List")
+	fmt.Println("0 - Exit program\n1 - Doubly Linked List\n2 - Deque")
 	fmt.Println("---------------------------------------------")
 }

@@ -10,3 +10,10 @@ func GetIntInput() int {
 
 	return input
 }
+
+func PrintMenu(ops string) {
+	fmt.Println("\n---------------------------------------------")
+	fmt.Println("Select an operation to perform:")
+	fmt.Println(ops)
+	fmt.Println("---------------------------------------------")
+}

@@ -7,10 +7,11 @@ import (
 	"algods/interfaces"
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 const MAX_TRAVERSE_LENGTH = 50
-const MAX_RANDOM_VALUE = 1_000
+const MAX_RANDOM_VALUE = 1000
 
 // Initiates the interactive menu for operating on a Doubly Linked List ADT
 func DListMenu(dlist interfaces.IDoublyLinkedList) {
@@ -58,7 +59,7 @@ func searchItem(dlist interfaces.IDoublyLinkedList) {
 	fmt.Print("\nType integer to search on the list: ")
 	input := common.GetIntInput()
 	_, err := dlist.Find(input)
-	if err != nil {
+	if err == nil {
 		fmt.Println("Item is in the list.")
 	} else {
 		fmt.Println("Item is not on the list.")
@@ -69,7 +70,7 @@ func deleteItem(dlist interfaces.IDoublyLinkedList) {
 	fmt.Print("\nType integer to delete from the list: ")
 	input := common.GetIntInput()
 	_, err := dlist.Delete(input)
-	if err != nil {
+	if err == nil {
 		fmt.Println("Item deleted.")
 	} else {
 		fmt.Println("Item not found on the list.")
@@ -77,6 +78,7 @@ func deleteItem(dlist interfaces.IDoublyLinkedList) {
 }
 
 func insertRandom(dlist interfaces.IDoublyLinkedList) {
+	rand.Seed(time.Now().UnixNano())
 	fmt.Print("\nHow many items to add? ")
 	input := common.GetIntInput()
 	fmt.Println("Inserting...")

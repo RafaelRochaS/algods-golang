@@ -72,12 +72,19 @@ func (dlist DoublyLinkedList) Find(item int) (interface{}, error) {
 		return nil, errors.New("item not found in the list")
 	}
 
-	for n := dlist.head; n != dlist.tail; n = n.next {
+	n := dlist.head
+
+	for ; n != nil; n = n.next {
 		if n.item == item {
-			return n, nil
+			break
 		}
 	}
-	return nil, errors.New("item not found in the list")
+
+	if n != nil {
+		return n, nil
+	} else {
+		return nil, errors.New("item not found in the list")
+	}
 }
 
 // Inserts an entire array into a list

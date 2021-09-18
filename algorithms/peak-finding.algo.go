@@ -3,5 +3,5 @@
 package algorithms
 
 func PeakFinding1D(arr []int) int {
-
+	return 0
 }

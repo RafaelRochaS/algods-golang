@@ -30,7 +30,7 @@ func (dq *Deque) Clear() {
 func (dq *Deque) InsertFront(input int) {
 	if !dq.validateEmptyInsert(input) {
 		newItem := DequeNode{previous: dq.head, item: input}
-		dq.head.next = &newItem
+		dq.head.previous = &newItem
 		dq.head = &newItem
 		dq.length++
 	}
@@ -51,6 +51,9 @@ func (dq *Deque) validateEmptyInsert(input int) bool {
 		newItem := DequeNode{item: input}
 		dq.head = &newItem
 		dq.tail = &newItem
+		dq.head.next = dq.tail
+		dq.tail.previous = dq.head
+		dq.length++
 		return true
 	}
 	return false

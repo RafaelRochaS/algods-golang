@@ -24,6 +24,8 @@ func main() {
 			operations.DListMenu(&datastructures.DoublyLinkedList{})
 		case 2:
 			operations.DequeMenu(&datastructures.Deque{})
+		case 3:
+			operations.PeakFindingMenu()
 		}
 	}
 }
@@ -32,6 +34,7 @@ func printMenu() {
 	fmt.Println("\nWhich Data Structure or Algorthim do you want to try out?")
 	fmt.Println(`0 - Exit program
 1 - Doubly Linked List - Default Implementation
-2 - Deque - Default Implementation`)
+2 - Deque - Default Implementation
+3 - Peak Finding`)
 	fmt.Println("---------------------------------------------")
 }

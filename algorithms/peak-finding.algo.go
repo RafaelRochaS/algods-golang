@@ -2,6 +2,14 @@
 // the data structures, or be used stand alone
 package algorithms
 
+// Algorithms to solve the Peak Finding problem - 1D version
 func PeakFinding1D(arr []int) int {
-	return 0
+	index := (len(arr) / 2)
+	if arr[index] < arr[index-1] {
+		return PeakFinding1D(arr[:index+1])
+	} else if arr[index] < arr[index+1] {
+		return PeakFinding1D(arr[index:])
+	} else {
+		return arr[index]
+	}
 }

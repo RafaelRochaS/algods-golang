@@ -5,6 +5,7 @@ import (
 	"algods/interfaces"
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 // Initiates the interactive menu for operating on a Deque ADT
@@ -19,7 +20,7 @@ func DequeMenu(dq interfaces.IDeque) {
 5 - Delete Front
 6 - Delete Rear
 7 - Contains
-8 - Traverse
+8 - Length
 9 - Peek Front
 10 - Peek Rear
 11 - Insert Random
@@ -52,7 +53,7 @@ func DequeMenu(dq interfaces.IDeque) {
 		case 7:
 			contains(dq)
 		case 8:
-			dq.Traverse()
+			fmt.Println(dq.Length())
 		case 9:
 			fmt.Println(dq.PeekFront())
 		case 10:
@@ -89,6 +90,7 @@ func contains(dq interfaces.IDeque) {
 }
 
 func insertRandomDq(dq interfaces.IDeque) {
+	rand.Seed(time.Now().UnixNano())
 	fmt.Println("\nHow many items to add? ")
 	input := common.GetIntInput()
 	fmt.Println("Inserting...")

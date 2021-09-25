@@ -95,7 +95,7 @@ func insertRandomDq(dq interfaces.IDeque) {
 	input := common.GetIntInput()
 	fmt.Println("Inserting...")
 	for i := 0; i < input; i++ {
-		dq.InsertFront(rand.Intn(MAX_RANDOM_VALUE))
+		dq.InsertFront(rand.Intn(common.MAX_RANDOM_VALUE))
 	}
 	fmt.Println("Done.")
 }

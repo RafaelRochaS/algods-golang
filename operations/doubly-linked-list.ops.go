@@ -10,9 +10,6 @@ import (
 	"time"
 )
 
-const MAX_TRAVERSE_LENGTH = 50
-const MAX_RANDOM_VALUE = 1000
-
 // Initiates the interactive menu for operating on a Doubly Linked List ADT
 func DListMenu(dlist interfaces.IDoublyLinkedList) {
 	var input int
@@ -83,7 +80,7 @@ func insertRandom(dlist interfaces.IDoublyLinkedList) {
 	input := common.GetIntInput()
 	fmt.Println("Inserting...")
 	for i := 0; i < input; i++ {
-		dlist.Insert(rand.Intn(MAX_RANDOM_VALUE))
+		dlist.Insert(rand.Intn(common.MAX_RANDOM_VALUE))
 	}
 	fmt.Println("Done.")
 }

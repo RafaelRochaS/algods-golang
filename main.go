@@ -26,6 +26,8 @@ func main() {
 			operations.DequeMenu(&datastructures.Deque{})
 		case 3:
 			operations.PeakFindingMenu()
+		case 4:
+			operations.InSortMenu()
 		}
 	}
 }
@@ -35,6 +37,7 @@ func printMenu() {
 	fmt.Println(`0 - Exit program
 1 - Doubly Linked List - Default Implementation
 2 - Deque - Default Implementation
-3 - Peak Finding`)
+3 - Peak Finding
+4 - Insertion Sort`)
 	fmt.Println("---------------------------------------------")
 }

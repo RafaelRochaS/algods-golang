@@ -28,6 +28,8 @@ func main() {
 			operations.PeakFindingMenu()
 		case 4:
 			operations.InSortMenu()
+		case 5:
+
 		}
 	}
 }
@@ -38,6 +40,7 @@ func printMenu() {
 1 - Doubly Linked List - Default Implementation
 2 - Deque - Default Implementation
 3 - Peak Finding
-4 - Insertion Sort`)
+4 - Insertion Sort
+5 - Find maximum subarray`)
 	fmt.Println("---------------------------------------------")
 }

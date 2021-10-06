@@ -1,7 +1,9 @@
 // Common functions and utilities
 package common
 
-import "fmt"
+import (
+	"fmt"
+)
 
 const MAX_TRAVERSE_LENGTH = 50
 const MAX_RANDOM_VALUE = 1000

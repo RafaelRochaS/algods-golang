@@ -29,7 +29,7 @@ func main() {
 		case 4:
 			operations.InSortMenu()
 		case 5:
-
+			operations.FindMaxMenu()
 		}
 	}
 }

@@ -30,6 +30,8 @@ func main() {
 			operations.InSortMenu()
 		case 5:
 			operations.FindMaxMenu()
+		case 6:
+			operations.MergeSortMenu()
 		}
 	}
 }
@@ -41,6 +43,7 @@ func printMenu() {
 2 - Deque - Default Implementation
 3 - Peak Finding
 4 - Insertion Sort
-5 - Find maximum subarray`)
+5 - Find maximum subarray
+6 - Merge Sort`)
 	fmt.Println("---------------------------------------------")
 }

@@ -23,3 +23,9 @@ func PrintMenu(ops string) {
 	fmt.Println(ops)
 	fmt.Println("---------------------------------------------")
 }
+
+func Swap(arr []int, i, j int) {
+	temp := arr[i]
+	arr[i] = arr[j]
+	arr[j] = temp
+}

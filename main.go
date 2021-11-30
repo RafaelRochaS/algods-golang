@@ -32,6 +32,8 @@ func main() {
 			operations.FindMaxMenu()
 		case 6:
 			operations.MergeSortMenu()
+		case 7:
+			operations.HeapMenu()
 		}
 	}
 }
@@ -44,6 +46,7 @@ func printMenu() {
 3 - Peak Finding
 4 - Insertion Sort
 5 - Find maximum subarray
-6 - Merge Sort`)
+6 - Merge Sort
+7 - Heaps`)
 	fmt.Println("---------------------------------------------")
 }

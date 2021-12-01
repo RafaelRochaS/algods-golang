@@ -24,12 +24,12 @@ func (h *Heap) MaxHeapify(i int) {
 	rightTreeRoot := Right(i)
 	var largest int
 
-	if leftTreeRoot <= h.HeapSize && h.Keys[leftTreeRoot] > h.Keys[i] {
+	if leftTreeRoot <= h.HeapSize-1 && h.Keys[leftTreeRoot] > h.Keys[i] {
 		largest = leftTreeRoot
 	} else {
 		largest = i
 	}
-	if rightTreeRoot <= h.HeapSize && h.Keys[rightTreeRoot] > h.Keys[largest] {
+	if rightTreeRoot <= h.HeapSize-1 && h.Keys[rightTreeRoot] > h.Keys[largest] {
 		largest = rightTreeRoot
 	}
 
@@ -41,7 +41,7 @@ func (h *Heap) MaxHeapify(i int) {
 
 func BuildMaxHeap(arr []int) Heap {
 	h := Heap{Keys: arr, HeapSize: len(arr)}
-	for i := len(arr) / 2; i <= 0; i-- {
+	for i := len(arr)/2 - 1; i >= 0; i-- {
 		h.MaxHeapify(i)
 	}
 

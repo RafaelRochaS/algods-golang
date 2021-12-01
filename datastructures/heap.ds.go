@@ -56,3 +56,35 @@ func Heapsort(arr []int) {
 		h.MaxHeapify(0)
 	}
 }
+
+func (h *Heap) Insert(key int) {
+	h.HeapSize++
+	h.Keys = append(h.Keys, key)
+	h.MaxHeapify(h.HeapSize - 1)
+}
+
+func (h *Heap) Max() int {
+	return h.Keys[0]
+}
+
+func (h *Heap) ExtractMax() int {
+	if h.HeapSize == 0 {
+		return -1
+	}
+	max := h.Keys[0]
+	h.Keys[0] = h.Keys[h.HeapSize-1]
+	h.HeapSize--
+	h.MaxHeapify(0)
+	return max
+}
+
+func (h *Heap) IncreaseKey(i int, key int) {
+	if key < h.Keys[i] {
+		return
+	}
+	h.Keys[i] = key
+	for i > 0 && h.Keys[Parent(i)] < h.Keys[i] {
+		common.Swap(h.Keys, i, Parent(i))
+		i = Parent(i)
+	}
+}

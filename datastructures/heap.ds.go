@@ -47,3 +47,12 @@ func BuildMaxHeap(arr []int) Heap {
 
 	return h
 }
+
+func Heapsort(arr []int) {
+	h := BuildMaxHeap(arr)
+	for i := len(arr) - 1; i >= 1; i-- {
+		common.Swap(h.Keys, 0, i)
+		h.HeapSize--
+		h.MaxHeapify(0)
+	}
+}

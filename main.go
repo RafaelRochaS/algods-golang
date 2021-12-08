@@ -34,6 +34,8 @@ func main() {
 			operations.MergeSortMenu()
 		case 7:
 			operations.HeapMenu()
+		case 8:
+			operations.AVLMenu()
 		}
 	}
 }
@@ -47,6 +49,7 @@ func printMenu() {
 4 - Insertion Sort
 5 - Find maximum subarray
 6 - Merge Sort
-7 - Heaps`)
+7 - Heaps
+8 - AVL Trees`)
 	fmt.Println("---------------------------------------------")
 }

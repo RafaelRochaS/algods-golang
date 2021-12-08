@@ -104,3 +104,49 @@ func (tree AVLTree) Predecessor(node *AVLNode) *AVLNode {
 
 	return predecessor
 }
+
+func (tree *AVLTree) Insert(key int) {
+
+	if tree.root == nil {
+		tree.root = &AVLNode{
+			key:    key,
+			left:   nil,
+			right:  nil,
+			parent: nil,
+			height: 0,
+		}
+	} else {
+		tree.insert(tree.root, key)
+	}
+}
+
+func (tree AVLTree) insert(node *AVLNode, key int) {
+
+	if key >= node.key {
+		if node.right == nil {
+			node.height++
+			node.right = &AVLNode{
+				key:    key,
+				left:   nil,
+				right:  nil,
+				parent: node,
+				height: 0,
+			}
+		} else {
+			tree.insert(node.right, key)
+		}
+	} else {
+		if node.left == nil {
+			node.height++
+			node.left = &AVLNode{
+				key:    key,
+				left:   nil,
+				right:  nil,
+				parent: node,
+				height: 0,
+			}
+		} else {
+			tree.insert(node.left, key)
+		}
+	}
+}

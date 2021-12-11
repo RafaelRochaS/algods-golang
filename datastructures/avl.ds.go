@@ -1,6 +1,8 @@
 package datastructures
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type AVLTree struct {
 	root *AVLNode
@@ -113,14 +115,14 @@ func (tree *AVLTree) Insert(key int) {
 			left:   nil,
 			right:  nil,
 			parent: nil,
-			height: 0,
+			height: 1,
 		}
 	} else {
 		tree.insert(tree.root, key)
 	}
 }
 
-func (tree AVLTree) insert(node *AVLNode, key int) {
+func (tree *AVLTree) insert(node *AVLNode, key int) {
 
 	if key >= node.key {
 		if node.right == nil {
@@ -130,7 +132,7 @@ func (tree AVLTree) insert(node *AVLNode, key int) {
 				left:   nil,
 				right:  nil,
 				parent: node,
-				height: 0,
+				height: 1,
 			}
 		} else {
 			tree.insert(node.right, key)
@@ -143,10 +145,83 @@ func (tree AVLTree) insert(node *AVLNode, key int) {
 				left:   nil,
 				right:  nil,
 				parent: node,
-				height: 0,
+				height: 1,
 			}
 		} else {
 			tree.insert(node.left, key)
 		}
 	}
+
+	var rotationResult *AVLNode
+
+	bf := balanceFactor(*node)
+	parent := node.parent
+
+	if bf >= 2 { // left heavy
+		rotationResult = rightRotate(node)
+	} else if bf <= -2 { // right heavy
+		rotationResult = leftRotate(node)
+	}
+	updateHeight(node)
+
+	if parent != nil {
+		if parent.left == node {
+			parent.left = rotationResult
+		} else {
+			parent.right = rotationResult
+		}
+	} else {
+		tree.root = rotationResult
+	}
+}
+
+func balanceFactor(node AVLNode) int {
+	return height(node.right) - height(node.left)
+}
+
+func updateHeight(node *AVLNode) {
+	heightLeft := height(node.left)
+	heightRight := height(node.right)
+
+	if heightLeft >= heightRight {
+		node.height = heightLeft + 1
+	} else {
+		node.height = heightRight + 1
+	}
+}
+
+func height(node *AVLNode) int {
+	if node == nil {
+		return 0
+	}
+
+	return node.height
+}
+
+func rightRotate(node *AVLNode) *AVLNode {
+	rightChild := *node.right
+	tmp := rightChild.left
+	rightChild.left = node
+	rightChild.parent = node.parent
+	node.right = tmp
+	if node.right != nil {
+		node.right.parent = node
+	}
+	node.parent = &rightChild
+	updateHeight(&rightChild)
+	return &rightChild
+}
+
+func leftRotate(node *AVLNode) *AVLNode {
+	leftChild := *node.left
+	tmp := leftChild.right
+	leftChild.right = node
+	leftChild.parent = node.parent
+	node.left = tmp
+	if node.left != nil {
+		node.left.parent = node
+	}
+	node.parent = &leftChild
+	updateHeight(&leftChild)
+	return &leftChild
 }

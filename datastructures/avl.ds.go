@@ -153,25 +153,31 @@ func (tree *AVLTree) insert(node *AVLNode, key int) {
 	}
 
 	var rotationResult *AVLNode
+	rotated := false
 
 	bf := balanceFactor(*node)
 	parent := node.parent
 
 	if bf >= 2 { // left heavy
 		rotationResult = rightRotate(node)
+		rotated = true
 	} else if bf <= -2 { // right heavy
 		rotationResult = leftRotate(node)
+		rotated = true
 	}
 	updateHeight(node)
 
-	if parent != nil {
-		if parent.left == node {
-			parent.left = rotationResult
+	if rotated {
+		if parent != nil {
+			if parent.left == node {
+				parent.left = rotationResult
+			} else {
+				parent.right = rotationResult
+			}
+			updateHeight(parent)
 		} else {
-			parent.right = rotationResult
+			tree.root = rotationResult
 		}
-	} else {
-		tree.root = rotationResult
 	}
 }
 
@@ -208,6 +214,7 @@ func rightRotate(node *AVLNode) *AVLNode {
 		node.right.parent = node
 	}
 	node.parent = &rightChild
+	updateHeight(node)
 	updateHeight(&rightChild)
 	return &rightChild
 }
@@ -222,6 +229,7 @@ func leftRotate(node *AVLNode) *AVLNode {
 		node.left.parent = node
 	}
 	node.parent = &leftChild
+	updateHeight(node)
 	updateHeight(&leftChild)
 	return &leftChild
 }

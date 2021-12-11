@@ -12,7 +12,9 @@ func AVLMenu() {
 		common.PrintMenu(`0 - Return
 1 - Test Insert
 2 - Test Right Rotate
-3 - Test Left Rotate`)
+3 - Test Left Rotate
+4 - Test Left Right Rotate
+5 - Test Right Left Rotate`)
 		fmt.Scanf("%d", &input)
 		switch input {
 		case 0:
@@ -64,7 +66,7 @@ func testLeftRightRotate() {
 }
 
 func testRightLeftRotate() {
-	arr := []int{10, 7, 8}
+	arr := []int{10, 12, 11}
 	avl := &datastructures.AVLTree{}
 	for i := 0; i < len(arr); i++ {
 		avl.Insert(arr[i])

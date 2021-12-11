@@ -245,6 +245,9 @@ func leftRightRotate(node *AVLNode) *AVLNode {
 	b := *a.right
 	node.left = &b
 	a.right = b.left
+	if b.left != nil {
+		b.left.parent = &a
+	}
 	a.parent = &b
 	b.left = &a
 	b.parent = node
@@ -254,6 +257,9 @@ func leftRightRotate(node *AVLNode) *AVLNode {
 	b.right = node
 	b.parent = node.parent
 	node.left = tmpbRight
+	if tmpbRight != nil {
+		tmpbRight.parent = node
+	}
 	node.parent = &b
 
 	updateHeight(node)
@@ -264,5 +270,32 @@ func leftRightRotate(node *AVLNode) *AVLNode {
 }
 
 func rightLeftRotate(node *AVLNode) *AVLNode {
-	return node
+	// Right Rotate
+	c := *node.right
+	b := *c.left
+	node.right = &b
+	tmpbRight := b.right
+	b.right = &c
+	b.parent = node
+	c.left = tmpbRight
+	if tmpbRight != nil {
+		tmpbRight.parent = &c
+	}
+	c.parent = &b
+
+	// Left Rotate
+	tmpBLeft := b.left
+	b.left = node
+	b.parent = node.parent
+	node.right = tmpBLeft
+	if tmpBLeft != nil {
+		tmpBLeft.parent = node
+	}
+	node.parent = &b
+
+	updateHeight(node)
+	updateHeight(&c)
+	updateHeight(&b)
+
+	return &b
 }

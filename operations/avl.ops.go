@@ -23,6 +23,10 @@ func AVLMenu() {
 			testRightRotate()
 		case 3:
 			testLeftRotate()
+		case 4:
+			testLeftRightRotate()
+		case 5:
+			testRightLeftRotate()
 		}
 	}
 }
@@ -45,6 +49,22 @@ func testRightRotate() {
 
 func testLeftRotate() {
 	arr := []int{10, 7, 6}
+	avl := &datastructures.AVLTree{}
+	for i := 0; i < len(arr); i++ {
+		avl.Insert(arr[i])
+	}
+}
+
+func testLeftRightRotate() {
+	arr := []int{10, 7, 8}
+	avl := &datastructures.AVLTree{}
+	for i := 0; i < len(arr); i++ {
+		avl.Insert(arr[i])
+	}
+}
+
+func testRightLeftRotate() {
+	arr := []int{10, 7, 8}
 	avl := &datastructures.AVLTree{}
 	for i := 0; i < len(arr); i++ {
 		avl.Insert(arr[i])

@@ -25,7 +25,6 @@ func (tree AVLTree) Search(key int) (bool, *AVLNode) {
 }
 
 func (tree AVLTree) search(key int, node *AVLNode) (bool, *AVLNode) {
-
 	if node == nil {
 		return false, nil
 	}
@@ -108,7 +107,6 @@ func (tree AVLTree) Predecessor(node *AVLNode) *AVLNode {
 }
 
 func (tree *AVLTree) Insert(key int) {
-
 	if tree.root == nil {
 		tree.root = &AVLNode{
 			key:    key,
@@ -123,7 +121,6 @@ func (tree *AVLTree) Insert(key int) {
 }
 
 func (tree *AVLTree) insert(node *AVLNode, key int) {
-
 	if key >= node.key {
 		if node.right == nil {
 			node.height++
@@ -158,11 +155,19 @@ func (tree *AVLTree) insert(node *AVLNode, key int) {
 	bf := balanceFactor(*node)
 	parent := node.parent
 
-	if bf >= 2 { // left heavy
-		rotationResult = rightRotate(node)
+	if bf >= 2 {
+		if bfRightChild := balanceFactor(*node.right); bfRightChild >= 1 {
+			rotationResult = leftRotate(node)
+		} else {
+			rotationResult = rightLeftRotate(node)
+		}
 		rotated = true
-	} else if bf <= -2 { // right heavy
-		rotationResult = leftRotate(node)
+	} else if bf <= -2 {
+		if bfLeftChild := balanceFactor(*node.left); bfLeftChild >= 1 {
+			rotationResult = leftRightRotate(node)
+		} else {
+			rotationResult = rightRotate(node)
+		}
 		rotated = true
 	}
 	updateHeight(node)
@@ -204,7 +209,7 @@ func height(node *AVLNode) int {
 	return node.height
 }
 
-func rightRotate(node *AVLNode) *AVLNode {
+func leftRotate(node *AVLNode) *AVLNode {
 	rightChild := *node.right
 	tmp := rightChild.left
 	rightChild.left = node
@@ -219,7 +224,7 @@ func rightRotate(node *AVLNode) *AVLNode {
 	return &rightChild
 }
 
-func leftRotate(node *AVLNode) *AVLNode {
+func rightRotate(node *AVLNode) *AVLNode {
 	leftChild := *node.left
 	tmp := leftChild.right
 	leftChild.right = node
@@ -232,4 +237,32 @@ func leftRotate(node *AVLNode) *AVLNode {
 	updateHeight(node)
 	updateHeight(&leftChild)
 	return &leftChild
+}
+
+func leftRightRotate(node *AVLNode) *AVLNode {
+	// Left Rotate
+	a := *node.left
+	b := *a.right
+	node.left = &b
+	a.right = b.left
+	a.parent = &b
+	b.left = &a
+	b.parent = node
+
+	// Right Rotate
+	tmpbRight := b.right
+	b.right = node
+	b.parent = node.parent
+	node.left = tmpbRight
+	node.parent = &b
+
+	updateHeight(node)
+	updateHeight(&a)
+	updateHeight(&b)
+
+	return &b
+}
+
+func rightLeftRotate(node *AVLNode) *AVLNode {
+	return node
 }

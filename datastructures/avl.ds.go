@@ -1,6 +1,7 @@
 package datastructures
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -149,6 +150,11 @@ func (tree *AVLTree) insert(node *AVLNode, key int) {
 		}
 	}
 
+	tree.rebalance(node)
+
+}
+
+func (tree *AVLTree) rebalance(node *AVLNode) {
 	var rotationResult *AVLNode
 	rotated := false
 
@@ -210,7 +216,7 @@ func height(node *AVLNode) int {
 }
 
 func leftRotate(node *AVLNode) *AVLNode {
-	rightChild := *node.right
+	rightChild := node.right
 	tmp := rightChild.left
 	rightChild.left = node
 	rightChild.parent = node.parent
@@ -218,14 +224,14 @@ func leftRotate(node *AVLNode) *AVLNode {
 	if node.right != nil {
 		node.right.parent = node
 	}
-	node.parent = &rightChild
+	node.parent = rightChild
 	updateHeight(node)
-	updateHeight(&rightChild)
-	return &rightChild
+	updateHeight(rightChild)
+	return rightChild
 }
 
 func rightRotate(node *AVLNode) *AVLNode {
-	leftChild := *node.left
+	leftChild := node.left
 	tmp := leftChild.right
 	leftChild.right = node
 	leftChild.parent = node.parent
@@ -233,23 +239,23 @@ func rightRotate(node *AVLNode) *AVLNode {
 	if node.left != nil {
 		node.left.parent = node
 	}
-	node.parent = &leftChild
+	node.parent = leftChild
 	updateHeight(node)
-	updateHeight(&leftChild)
-	return &leftChild
+	updateHeight(leftChild)
+	return leftChild
 }
 
 func leftRightRotate(node *AVLNode) *AVLNode {
 	// Left Rotate
-	a := *node.left
-	b := *a.right
-	node.left = &b
+	a := node.left
+	b := a.right
+	node.left = b
 	a.right = b.left
 	if b.left != nil {
-		b.left.parent = &a
+		b.left.parent = a
 	}
-	a.parent = &b
-	b.left = &a
+	a.parent = b
+	b.left = a
 	b.parent = node
 
 	// Right Rotate
@@ -260,28 +266,28 @@ func leftRightRotate(node *AVLNode) *AVLNode {
 	if tmpbRight != nil {
 		tmpbRight.parent = node
 	}
-	node.parent = &b
+	node.parent = b
 
 	updateHeight(node)
-	updateHeight(&a)
-	updateHeight(&b)
+	updateHeight(a)
+	updateHeight(b)
 
-	return &b
+	return b
 }
 
 func rightLeftRotate(node *AVLNode) *AVLNode {
 	// Right Rotate
-	c := *node.right
-	b := *c.left
-	node.right = &b
+	c := node.right
+	b := c.left
+	node.right = b
 	tmpbRight := b.right
-	b.right = &c
+	b.right = c
 	b.parent = node
 	c.left = tmpbRight
 	if tmpbRight != nil {
-		tmpbRight.parent = &c
+		tmpbRight.parent = c
 	}
-	c.parent = &b
+	c.parent = b
 
 	// Left Rotate
 	tmpBLeft := b.left
@@ -291,11 +297,62 @@ func rightLeftRotate(node *AVLNode) *AVLNode {
 	if tmpBLeft != nil {
 		tmpBLeft.parent = node
 	}
-	node.parent = &b
+	node.parent = b
 
 	updateHeight(node)
-	updateHeight(&c)
-	updateHeight(&b)
+	updateHeight(c)
+	updateHeight(b)
 
-	return &b
+	return b
+}
+
+func (tree *AVLTree) Delete(key int) error {
+	return tree.delete(tree.root, key)
+}
+
+func (tree *AVLTree) delete(node *AVLNode, key int) error {
+	if node == nil {
+		return errors.New("key not found in tree")
+	} else if node.key > key {
+		tree.delete(node.left, key)
+	} else if node.key < key {
+		tree.delete(node.right, key)
+	} else {
+		if node.left == nil {
+			tree.subtreeShift(node, node.right)
+		} else if node.right == nil {
+			tree.subtreeShift(node, node.left)
+		} else {
+			successor := tree.Successor(node)
+			if successor.parent != node {
+				tree.subtreeShift(successor, successor.right)
+				successor.right = node.right
+				successor.right.parent = successor
+			}
+			tree.subtreeShift(node, successor)
+			successor.left = node.left
+			successor.left.parent = successor
+			updateHeight(successor)
+		}
+	}
+
+	tree.rebalance(node)
+
+	return nil
+}
+
+func (tree *AVLTree) subtreeShift(nodeDeleted *AVLNode, nextInLine *AVLNode) {
+	if nodeDeleted.parent == nil {
+		tree.root = nextInLine
+	} else if nodeDeleted == nodeDeleted.parent.left {
+		nodeDeleted.parent.left = nextInLine
+		updateHeight(nodeDeleted.parent)
+	} else {
+		nodeDeleted.parent.right = nextInLine
+		updateHeight(nodeDeleted.parent)
+	}
+
+	if nextInLine != nil {
+		nextInLine.parent = nodeDeleted.parent
+	}
 }

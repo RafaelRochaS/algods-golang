@@ -14,7 +14,8 @@ func AVLMenu() {
 2 - Test Right Rotate
 3 - Test Left Rotate
 4 - Test Left Right Rotate
-5 - Test Right Left Rotate`)
+5 - Test Right Left Rotate
+6 - Test Delete`)
 		fmt.Scanf("%d", &input)
 		switch input {
 		case 0:
@@ -29,12 +30,14 @@ func AVLMenu() {
 			testLeftRightRotate()
 		case 5:
 			testRightLeftRotate()
+		case 6:
+			testDelete()
 		}
 	}
 }
 
 func testInsert() {
-	arr := []int{5, 9, 10, 2, 45, 8, 13, 10}
+	arr := []int{5, 9, 10, 2, 45, 8, 13, 10, 4, 6, 16}
 	avl := &datastructures.AVLTree{}
 	for i := 0; i < len(arr); i++ {
 		avl.Insert(arr[i])
@@ -71,4 +74,15 @@ func testRightLeftRotate() {
 	for i := 0; i < len(arr); i++ {
 		avl.Insert(arr[i])
 	}
+}
+
+func testDelete() {
+	arr := []int{5, 9, 10, 2, 45, 8}
+	avl := &datastructures.AVLTree{}
+	for i := 0; i < len(arr); i++ {
+		avl.Insert(arr[i])
+	}
+	avl.Delete(5)
+	avl.Delete(3)
+	avl.Delete(2)
 }

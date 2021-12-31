@@ -36,6 +36,8 @@ func main() {
 			operations.HeapMenu()
 		case 8:
 			operations.AVLMenu()
+		case 9:
+			operations.HashTableMenu()
 		}
 	}
 }
@@ -50,6 +52,7 @@ func printMenu() {
 5 - Find maximum subarray
 6 - Merge Sort
 7 - Heaps
-8 - AVL Trees`)
+8 - AVL Trees
+9 - Hash Tables`)
 	fmt.Println("---------------------------------------------")
 }

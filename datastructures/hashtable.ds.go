@@ -63,7 +63,27 @@ func (node *LinkedListNode) searchLinkedList(key string) (int, error) {
 	}
 
 	return node.next.searchLinkedList(key)
+}
 
+func (ht HashTable) Delete(key string) error {
+	hashValue := hash(key)
+	return ht[hashValue].root.deleteLinkedList(key)
+}
+
+func (node *LinkedListNode) deleteLinkedList(key string) error {
+	if node == nil {
+		return errors.New("key not found")
+	}
+
+	if node.key == key {
+		if node.prev != nil {
+			node.prev.next = nil
+		}
+		node = nil
+		return nil
+	}
+
+	return node.next.deleteLinkedList(key)
 }
 
 // the hash() private function uses the famous Horner's method

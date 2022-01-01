@@ -1,5 +1,7 @@
 package datastructures
 
+import "errors"
+
 type LinkedList struct {
 	root *LinkedListNode
 }
@@ -7,6 +9,7 @@ type LinkedList struct {
 type LinkedListNode struct {
 	prev  *LinkedListNode
 	value int
+	key   string
 	next  *LinkedListNode
 }
 
@@ -24,23 +27,43 @@ func (ht HashTable) Insert(key string, value int) {
 		ht[hashValue].root = &LinkedListNode{
 			prev:  nil,
 			value: value,
+			key:   key,
 			next:  nil,
 		}
 	} else {
-		ht[hashValue].root.findInsertPosition(value)
+		ht[hashValue].root.findInsertPosition(key, value)
 	}
 }
 
-func (node *LinkedListNode) findInsertPosition(value int) {
+func (node *LinkedListNode) findInsertPosition(key string, value int) {
 	if node.next == nil {
 		node.next = &LinkedListNode{
 			prev:  node,
 			value: value,
+			key:   key,
 			next:  nil,
 		}
 	} else {
-		node.next.findInsertPosition(value)
+		node.next.findInsertPosition(key, value)
 	}
+}
+
+func (ht HashTable) Search(key string) (int, error) {
+	hashValue := hash(key)
+	return ht[hashValue].root.searchLinkedList(key)
+}
+
+func (node *LinkedListNode) searchLinkedList(key string) (int, error) {
+	if node == nil {
+		return -1, errors.New("item not found on dictionary")
+	}
+
+	if node.key == key {
+		return node.value, nil
+	}
+
+	return node.next.searchLinkedList(key)
+
 }
 
 // the hash() private function uses the famous Horner's method

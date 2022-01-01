@@ -31,6 +31,11 @@ func testInsertRandom() {
 
 	for {
 		number := generator.Intn(1000)
-		ht.Insert("key-"+strconv.Itoa(number), number)
+		key := "key-" + strconv.Itoa(number)
+		ht.Insert(key, number)
+		value, err := ht.Search(key)
+		fmt.Printf("[+] Just inserted:\tValue %d\tError: %v\n", value, err)
+		value, err = ht.Search("non-existant")
+		fmt.Printf("[+] Non-existant:\tValue %d\tError: %v\n", value, err)
 	}
 }

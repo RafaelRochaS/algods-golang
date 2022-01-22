@@ -13,25 +13,36 @@ type LinkedListNode struct {
 	next  *LinkedListNode
 }
 
-type HashTable []LinkedList
+type HashTable struct {
+	Table []LinkedList
+	Size  int
+	Items int
+}
 
-const MAX_SIZE = 50
+const INITIAL_SIZE = 8
 
 func NewHashTable() HashTable {
-	return make(HashTable, MAX_SIZE)
+	return HashTable{
+		Size:  INITIAL_SIZE,
+		Items: 0,
+		Table: make([]LinkedList, INITIAL_SIZE),
+	}
 }
 
 func (ht HashTable) Insert(key string, value int) {
-	hashValue := hash(key)
-	if ht[hashValue].root == nil {
-		ht[hashValue].root = &LinkedListNode{
+	ht.Items++
+	ht.evaluateSize()
+
+	hashValue := ht.hash(key)
+	if ht.Table[hashValue].root == nil {
+		ht.Table[hashValue].root = &LinkedListNode{
 			prev:  nil,
 			value: value,
 			key:   key,
 			next:  nil,
 		}
 	} else {
-		ht[hashValue].root.findInsertPosition(key, value)
+		ht.Table[hashValue].root.findInsertPosition(key, value)
 	}
 }
 
@@ -49,8 +60,8 @@ func (node *LinkedListNode) findInsertPosition(key string, value int) {
 }
 
 func (ht HashTable) Search(key string) (int, error) {
-	hashValue := hash(key)
-	return ht[hashValue].root.searchLinkedList(key)
+	hashValue := ht.hash(key)
+	return ht.Table[hashValue].root.searchLinkedList(key)
 }
 
 func (node *LinkedListNode) searchLinkedList(key string) (int, error) {
@@ -66,8 +77,10 @@ func (node *LinkedListNode) searchLinkedList(key string) (int, error) {
 }
 
 func (ht HashTable) Delete(key string) error {
-	hashValue := hash(key)
-	return ht[hashValue].root.deleteLinkedList(key)
+	ht.Items--
+	ht.evaluateSize()
+	hashValue := ht.hash(key)
+	return ht.Table[hashValue].root.deleteLinkedList(key)
 }
 
 func (node *LinkedListNode) deleteLinkedList(key string) error {
@@ -89,11 +102,41 @@ func (node *LinkedListNode) deleteLinkedList(key string) error {
 // the hash() private function uses the famous Horner's method
 // to generate a hash of a string with O(n) complexity
 // taken from: https://flaviocopes.com/golang-data-structure-hashtable/
-// Added the mod MAX_SIZE, so that the max size of the array (and max keys) is MAX_SIZE
-func hash(key string) int {
+// Added the mod size, so that the max size of the array (and max keys) is size
+func (ht HashTable) hash(key string) int {
 	h := 0
 	for i := 0; i < len(key); i++ {
 		h = 31*h + int(key[i])
 	}
-	return h % MAX_SIZE
+	return h % ht.Size
+}
+
+func (ht HashTable) loadFactor() float32 {
+	return float32(ht.Size) / float32(ht.Items)
+}
+
+func (ht HashTable) evaluateSize() {
+	lf := ht.loadFactor()
+	if lf >= 1 {
+		ht.resize(true)
+	} else if lf <= 0.25 {
+		ht.resize(false)
+	}
+}
+
+func (ht *HashTable) resize(up bool) {
+	var newTable []LinkedList
+	oldTable := ht.Table
+	if up {
+		newSize := ht.Size * 2
+		newTable = make([]LinkedList, newSize)
+		ht.Size = newSize
+	} else {
+		newSize := ht.Size / 2
+		newTable = make([]LinkedList, newSize)
+		ht.Size = newSize
+	}
+
+	ht.Table = newTable
+
 }

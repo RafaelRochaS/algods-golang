@@ -126,7 +126,7 @@ func (ht HashTable) evaluateSize() {
 
 func (ht *HashTable) resize(up bool) {
 	var newTable []LinkedList
-	oldTable := ht.Table
+	//oldTable := ht.Table
 	if up {
 		newSize := ht.Size * 2
 		newTable = make([]LinkedList, newSize)

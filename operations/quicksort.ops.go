@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-func InSortMenu() {
+func QuicksortMenu() {
 	var input int
 	for {
 		common.PrintMenu(`0 - Return
@@ -19,9 +19,9 @@ func InSortMenu() {
 		case 0:
 			return
 		case 1:
-			fmt.Println("Array sorted: ", sorters.InsertionSort(utils.GetArrayWithManualInput()))
+			fmt.Println("Array sorted: ", sorters.Quicksort(utils.GetArrayWithManualInput()))
 		case 2:
-			fmt.Println("Array sorted: ", sorters.InsertionSort(utils.GetArrayWithRandomInput()))
+			fmt.Println("Array sorted: ", sorters.Quicksort(utils.GetArrayWithRandomInput()))
 		}
 	}
 }

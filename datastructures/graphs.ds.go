@@ -35,13 +35,14 @@ const (
 func CreateGraph(vertexes []int, edges []Edge) *Graph {
 	g := &Graph{
 		v: createVertexArray(vertexes),
-		e: edges
+		e: edges,
 	}
 
 	return g
 }
 
 func createVertexArray(vertexes []int) (v []Vertex) {
+	v = make([]Vertex, 0)
 	for _, i := range vertexes {
 		v[i] = Vertex{
 			Id:       i,
@@ -54,9 +55,9 @@ func createVertexArray(vertexes []int) (v []Vertex) {
 	return v
 }
 
-func createAdjacencyList(vertexes []Vertex, edges []Edges) (adj Adj) {
-	
-}
+// func createAdjacencyList(vertexes []Vertex, edges []Edges) (adj Adj) {
+
+// }
 
 // Add a vertex with its adjacents in an array
 func (g Graph) InsertArray(vertex int, adjacents []int) {

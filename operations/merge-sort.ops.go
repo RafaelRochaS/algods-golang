@@ -3,9 +3,8 @@ package operations
 import (
 	"algods/algorithms/sorters"
 	"algods/common"
+	"algods/utils"
 	"fmt"
-	"math/rand"
-	"time"
 )
 
 func MergeSortMenu() {
@@ -20,9 +19,9 @@ func MergeSortMenu() {
 		case 0:
 			return
 		case 1:
-			fmt.Println("Error: not implemented")
+			sort(utils.GetArrayWithManualInput())
 		case 2:
-			randomInputMerge()
+			sort(utils.GetArrayWithRandomInput())
 		case 3:
 			bookExampleArray()
 		}
@@ -30,23 +29,14 @@ func MergeSortMenu() {
 
 }
 
+func sort(arr []int) {
+	sorters.MergeSort(arr, 0, len(arr)-1)
+	fmt.Println("Array sorted: ", arr)
+}
+
 func bookExampleArray() {
 	array := []int{2, 4, 5, 7, 1, 2, 3, 6}
 	fmt.Printf("Current array: %v", array)
 	sorters.MergeSort(array, 0, len(array)-1)
 	fmt.Printf("Sorted array: %v", array)
-}
-
-func randomInputMerge() {
-	rand.Seed(time.Now().UnixNano())
-	fmt.Print("\nHow many items to add? ")
-	input := common.GetIntInput()
-	fmt.Println("Inserting...")
-	arr := make([]int, 0, input)
-	for i := 0; i < input; i++ {
-		arr = append(arr, rand.Intn(common.MAX_RANDOM_VALUE))
-	}
-	fmt.Println("Array inserted: ", arr)
-	sorters.MergeSort(arr, 0, len(arr)-1)
-	fmt.Println("Array sorted: ", arr)
 }

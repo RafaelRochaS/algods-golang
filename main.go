@@ -38,6 +38,8 @@ func main() {
 			operations.AVLMenu()
 		case 9:
 			operations.HashTableMenu()
+		case 10:
+			operations.QuicksortMenu()
 		}
 	}
 }
@@ -53,6 +55,7 @@ func printMenu() {
 6 - Merge Sort
 7 - Heaps
 8 - AVL Trees
-9 - Hash Tables`)
+9 - Hash Tables
+10 - Quicksort`)
 	fmt.Println("---------------------------------------------")
 }

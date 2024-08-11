@@ -37,7 +37,7 @@ func testMaxHeapifyBook() {
 
 func testBuildMaxHeapBook() {
 	arr := []int{4, 1, 3, 2, 16, 9, 10, 14, 8, 7}
-	heap := datastructures.Heap{Keys: arr, HeapSize: 10}
+	heap := datastructures.Heap{Keys: arr}
 	fmt.Println("Current heap:")
 	fmt.Println(heap.Keys)
 	fmt.Println("Calling BuildMaxHeap...")

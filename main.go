@@ -1,6 +1,7 @@
 package main
 
 import (
+	"algods/algorithms"
 	"algods/common"
 	"algods/datastructures"
 	"algods/operations"
@@ -8,6 +9,10 @@ import (
 )
 
 func main() {
+
+	arr := []int{3, 2, 3, 1, 2, 4, 5, 5, 6}
+	k := 4
+	fmt.Print(algorithms.Quickselect(arr, k))
 
 	fmt.Println("********************************************************")
 	fmt.Println("Data Structures and Algorithms - Tests and Experiments")

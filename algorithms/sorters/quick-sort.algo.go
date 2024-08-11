@@ -8,7 +8,7 @@ func Quicksort(arr []int) []int {
 }
 
 func quicksort(arr []int, low, high int) {
-	if low > high {
+	if low >= high || low < 0 || high < 0 {
 		return
 	}
 
@@ -24,21 +24,28 @@ func partition(arr []int, low, high int) int {
 	left := low - 1
 	right := high + 1
 
-	for running := true; running; running = (arr[left] < pivot) {
-		left += 1
+	for {
+		for {
+			left += 1
+			if arr[left] >= pivot {
+				break
+			}
+		}
+
+		for {
+			right -= 1
+			if arr[right] <= pivot {
+				break
+			}
+		}
+
+		if left >= right {
+			return right
+		}
+
+		swap(arr, left, right)
 	}
 
-	for running := true; running; running = (arr[right] > pivot) {
-		right += 1
-	}
-
-	if left >= right {
-		return right
-	}
-
-	swap(arr, left, right)
-
-	return left
 }
 
 func swap(arr []int, index1, index2 int) {

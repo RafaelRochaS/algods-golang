@@ -26,3 +26,20 @@ func BinarySearch(array []int, item int) int {
 
 	return -1
 }
+
+func BinarySearchRecursive(array []int, item int) int {
+	return binaryRecursive(array, item, 0, len(array)-1)
+}
+
+func binaryRecursive(array []int, item, low, high int) int {
+	mid := (low + high) / 2
+	if array[mid] == item {
+		return mid
+	}
+
+	if array[mid] > item {
+		return binaryRecursive(array, item, low, mid-1)
+	} else {
+		return binaryRecursive(array, item, mid+1, high)
+	}
+}

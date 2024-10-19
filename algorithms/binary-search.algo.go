@@ -37,6 +37,10 @@ func binaryRecursive(array []int, item, low, high int) int {
 		return mid
 	}
 
+	if low >= high {
+		return -1
+	}
+
 	if array[mid] > item {
 		return binaryRecursive(array, item, low, mid-1)
 	} else {
